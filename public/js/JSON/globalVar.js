@@ -7,20 +7,23 @@ define(['ojs/ojcore', 'jquery'],
                 var self = this;
                 self.currentCloud = {
                 };
-                
+
                 self.NodeJSAPIURL = "https://javadaynodejsdemoapplication-gse00011010.apaas.em3.oraclecloud.com/javaDayTokyoNodejs/list/";
                 self.NodeJSSearchAPIURL = "https://javadaynodejsdemoapplication-gse00011010.apaas.em3.oraclecloud.com/javaDayTokyoNodejs/service/";
-                
+
                 self.totalCloud = new Array();
 
-                self.getIcon = function (type) {
+                self.getIcon = function (name) {
                     var imageIcon;
-                    if (type === 'IaaS')
-                        imageIcon = "css/images/StorageCloud.png";
-                    else if (type === 'PaaS')
-                        imageIcon = "css/images/ApplicationContainerCloud.png";
-                    else
-                        imageIcon = 'css/images/GlobalHumanResourcesCloud.png';
+//                    console.log("icon name is " + name);
+                    imageIcon = "css/images/" + name + ".png";
+                    
+//                    if (type === 'IaaS')
+//                        imageIcon = "css/images/StorageCloud.png";
+//                    else if (type === 'PaaS')
+//                        imageIcon = "css/images/ApplicationContainerCloud.png";
+//                    else
+//                        imageIcon = 'css/images/GlobalHumanResourcesCloud.png';
                     return imageIcon;
                 };
 
@@ -37,13 +40,14 @@ define(['ojs/ojcore', 'jquery'],
 
                 self.getFinalData = function (JSONReturn) {
 
-                    if (JSONReturn !== undefined && JSONReturn[0] !== "" ) {
-                         self.totalCloud = new Array();
+                    if (JSONReturn !== undefined && JSONReturn[0] !== "") {
+                        self.totalCloud = new Array();
                         var newArray = JSON.parse(JSONReturn);
                         for (var i = 0; i < newArray.length; i++) {
                             var value = newArray[i];
                             var color = self.getColor(value.type);
-                            var Icon = self.getIcon(value.type);
+                            var newName = self.Trim(value.name);
+                            var Icon = self.getIcon(newName);
                             value.color = color;
                             value.icon = Icon;
                             value.id = i;
@@ -51,11 +55,21 @@ define(['ojs/ojcore', 'jquery'],
                         }
 
                         return self.totalCloud;
-                    }else{
-                        
+                    } else {
+
                     }
 
                 };
+
+
+                self.Trim = function (str)
+                {
+                    var result;
+                    result = str.replace(/\s/g, "");
+                    return result;
+                };
+
+
                 self.getFinalData();
             }
 

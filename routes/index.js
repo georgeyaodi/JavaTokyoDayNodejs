@@ -1,5 +1,6 @@
 global.Buffer = global.Buffer || require('buffer').Buffer;
-
+global.dataArray;
+global.imageName;
 if (typeof btoa === 'undefined') {
   global.btoa = function (str) {
     return new Buffer(str).toString('base64');
@@ -17,6 +18,7 @@ global.XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 global.FileReader = require('filereader');
 global.File = require('file');
 var express = require('express');
+var downloadImg = require("./downloadImg");
 var router = express.Router();
 //var http = require('http');
 var https = require('https');
@@ -160,7 +162,7 @@ router.get('/javaDayTokyoNodejs/list', function(req, res, next) {
           });
           subreq.end();
 
-	pic_computeCloud_options.path = '/v1/Storage-gse00011010/JavaDayTokyo/GlobalHumanResourcesCloud.png';
+/*	pic_computeCloud_options.path = '/v1/Storage-gse00011010/JavaDayTokyo/GlobalHumanResourcesCloud.png';
 	var humanResourceReq = https.request(pic_computeCloud_options,function(subres){
 		 subres.setEncoding("binary");
         	 var json='';
@@ -242,17 +244,26 @@ router.get('/javaDayTokyoNodejs/list', function(req, res, next) {
                console.log("error" + err);
                res.send(err);
           });
-          storageResourceReq.end();
+          storageResourceReq.end();*/
 
 	 var listSubreq = https.request(list_options,function(subres){
         	 var json='';
 	         subres.on('data',function(data) {
         	      json+=data;
-              	      console.log("data" + data);
+              	     // console.log("data" + data);
 	         });
         	 subres.on('end',function() {
-             	      console.log("json" + json);
+             	    //  console.log("json" + json);
+		     dataArray = eval(json);
+		     
+		     for (var i =0 ;i < dataArray.length; i++) {
+			imageName = dataArray[i].name.split(' ').join('') + ".png";
+			//pic_computeCloud_options.path = '/v1/Storage-gse00011010/JavaDayTokyo/';
+          	     	downloadImg.downloadImg('/v1/Storage-gse00011010/JavaDayTokyo/',imageName);
+		     }
 	             res.send(json);
+		   //  res.send(names);	             
+			
         	 });
           });
           listSubreq.on('error',function(err){
@@ -287,6 +298,7 @@ router.get('/javaDayTokyoNodejs/list', function(req, res, next) {
 
 
 });
+
 
 router.get('/javaDayTokyoNodejs/list/:type', function(req, res, next) {
 
