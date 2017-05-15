@@ -15,7 +15,7 @@ if (typeof atob === 'undefined') {
 
 global.Blob = require('blob');
 global.XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
-global.FileReader = require('filereader');
+//global.FileReader = require('filereader');
 global.File = require('file');
 var express = require('express');
 var downloadImg = require("./downloadImg");
