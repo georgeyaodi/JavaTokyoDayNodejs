@@ -5,10 +5,10 @@
  */
 
 console.log("**************111111");
-var express = require('express');
+var app = require('../app');
 var debug = require('debug')('app:server');
 var http = require('http');
-var app = express(); 
+
 
 /**
  * Get port from environment and store in Express.
