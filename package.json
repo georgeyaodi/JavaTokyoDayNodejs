@@ -1,7 +1,6 @@
 {
   "name": "javadaynodejsdemo",
   "version": "0.0.0",
-  "private": true,
   "scripts": {
     "prepublish": "zip -r target/javadayTokyoNode.zip bin node_modules public routes views *.js manifest.json startNode.sh ",
     "start": "node ./bin/www"
