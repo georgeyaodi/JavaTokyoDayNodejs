@@ -4,15 +4,21 @@
  * Module dependencies.
  */
 
+console.log("**************111111");
 var app = require('../app');
-var debug = require('debug')('javadaynodejsdemo:server');
+var debug = require('debug')('app:server');
 var http = require('http');
+
 
 /**
  * Get port from environment and store in Express.
  */
-
-var port = normalizePort(process.env.PORT || '3000');
+console.log(__dirname)；
+console.log("**************");
+console.log(process.env.PORT);
+console.log("**************");
+var port = normalizePort(process.env.PORT || '3000' || '80');
+var ip = normalizePort(process.env.IP || '127.0.0.1' || localhost);
 app.set('port', port);
 
 /**
@@ -83,7 +89,7 @@ function onError(error) {
 
 function onListening() {
 //  var addr = server.address();
-var addr = '10.182.235.210';
+var addr = ip;
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;

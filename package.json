@@ -1,8 +1,8 @@
 {
   "name": "javadaynodejsdemo",
   "version": "0.0.0",
-  "private": true,
   "scripts": {
+    "prepublish": "zip -r target/javadayTokyoNode.zip bin node_modules public routes views *.js manifest.json startNode.sh ",
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -13,5 +13,8 @@
     "jade": "~1.11.0",
     "morgan": "~1.8.1",
     "serve-favicon": "~2.4.2"
-  }
+  },
+   "engines": {
+        "node": ">=6.0.0"
+    }
 }
